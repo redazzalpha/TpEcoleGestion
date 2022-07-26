@@ -1,0 +1,49 @@
+﻿@model TpGestionEcole.Models.Module
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <h3>Créer un nouveau module</h3>
+    <hr />
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nom" class="control-label"></label>
+                <input asp-for="Nom" class="form-control" />
+                <span asp-validation-for="Nom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Resume" class="control-label"></label>
+                <input asp-for="Resume" class="form-control" />
+                <span asp-validation-for="Resume" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Infos" class="control-label"></label>
+                <input asp-for="Infos" class="form-control" />
+                <span asp-validation-for="Infos" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="logo" class="control-label">Choisir un logo</label>
+                <input asp-for="logo" type="file" onchange="document.getElementById('logoP')
+                .src=window.URL
+                .createObjectURL(this.files[0])" class="form-control" name="logo" />
+                <span asp-validation-for="logo" class="text-danger"></span>
+            </div>
+            <img alt="logo" id="logoP" src="https://localhost:7278/assets/no-image.png" width="200" height="200" class="my-2" style="object-fit: cover; border-radius: 15px" />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Retour accueil</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

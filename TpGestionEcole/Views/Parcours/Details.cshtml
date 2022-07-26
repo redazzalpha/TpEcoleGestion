@@ -1,0 +1,81 @@
+﻿@model TpGestionEcole.Models.Parcours
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <h3>Details du parcours</h3>
+    <hr />
+    <div class="w-100 my-5" style="">
+        <div class="container-fluid m-0 ">
+            <div class="row d-flex justify-content-center justify-content-md-start align-items-center p-2 rounded-3 " style="box-shadow: 5px 5px 15px grey">
+                <div class="col  flex-grow-0 p-0">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="@Model.logo" alt="Card image cap" height="130" style="object-fit: cover" />
+                        <div class="card-body">
+                            <p class="card-text text-black">Parcours @Model.Nom</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-12 col-sm-12 col-md-6 mx-auto" style="">
+                    <p class="">
+                        @Html.DisplayFor(model => model.Resume)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+    {
+        <a asp-action="Edit" class="btn btn-outline-primary" asp-route-id="@Model?.Id">Modifier</a>
+    }
+    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary">Retour Accueil</a>
+</div>
+<div class="mt-5">
+
+    @if (@ViewBag.modules.Count > 0)
+    {
+        <h3>Liste des modules associés</h3>
+        <hr />
+        @foreach (var item in ViewBag.modules)
+        {
+            <div class="w-100 my-5" style="">
+                <div class="container-fluid m-0 ">
+                    <div class="row d-flex justify-content-center justify-content-md-start align-items-center p-2 rounded-3 " style="box-shadow: 5px 5px 15px grey">
+                        <div class="col  flex-grow-0 p-0">
+                            <div class="card" style="width: 18rem;">
+                                <img class="card-img-top" src="@item.logo" alt="Card image cap" height="130" style="object-fit: cover" />
+                                <div class="card-body">
+                                    <p class="card-text text-black">Module @item.Nom</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-12 col-sm-12 col-md-6 mx-auto">
+                            <p class="d-flex w-100">
+                                @item.Resume
+                                @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+                                {
+                                    <form asp-action="Delier" asp-route-id="@Model?.Id" method="post">
+                                        <button type="submit" class="btn btn-danger" style="max-height: 40px;">détacher</button>
+                                    </form>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="container-fluid mt-5">
+            <div class="row">
+                <div class="col d-flex justify-content-center">
+                    <p class="h4">Aucun module n'est associé à ce parcours</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

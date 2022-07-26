@@ -1,0 +1,35 @@
+﻿@model TpGestionEcole.Models.Parcours
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Souhaitez vous réellement supprimer ce  parcours?</h3>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nom)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nom)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Resume)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Resume)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.logo)
+            <img alt="logo" id="logoP" src="@Model.logo" width="200" height="200" class="my-2" style="object-fit: cover; border-radius: 15px" />
+        </dt>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Supprimer" class="btn btn-danger" />
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Retour accueil</a>
+    </form>
+</div>

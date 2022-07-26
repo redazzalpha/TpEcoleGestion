@@ -1,0 +1,57 @@
+﻿@model TpGestionEcole.Models.Parcours
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <h4>Modification du parcours</h4>
+    <hr />
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Nom" class="control-label"></label>
+                <input asp-for="Nom" class="form-control" name="Nom" />
+                <span asp-validation-for="Nom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Resume" class="control-label"></label>
+                <input asp-for="Resume" class="form-control" name="Resume" />
+                <span asp-validation-for="Resume" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="logo" class="control-label">Choisir un logo</label>
+                <input asp-for="logo" type="file" id="inputFile" onchange="onChangeImg()" class="form-control" name="logo" />
+            </div>
+            <img alt="logo" id="logoP" src=@Model.logo width="200" height="200" class="my-2" style="object-fit: cover; border-radius: 15px" />
+            <div class="form-group mb-2">
+                <select class="form-select" aria-label="Default select example" name="moduleId">
+                    <option selected>-- Ajouter un module --</option>
+                    @if (ViewBag.modules != null)
+                    {
+                        @foreach (var item in @ViewBag.modules)
+                        {
+                            @if (item.ParcoursId == null)
+                            {
+                                <option value="@item.Id">@item.Nom</option>
+                            }
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Modifier" class="btn btn-info" />
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Retour accueil</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
